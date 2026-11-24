@@ -1,0 +1,34 @@
+<!-- Sitecore: Indsæt én iframe på hver af de tre relevante sider.
+
+     Adresserne er allerede tilpasset GitHub Pages og Sitecore. -->
+
+<!-- Plakat -->
+<iframe id="ai-embed-plakat" title="Plakat"
+  src="https://lgad-via.github.io/AI-blomst-embed/plakat.html?lang=da&amp;theme=light&amp;parentOrigin=https%3A%2F%2Fai-blomsten.via.dk"
+  loading="lazy" allow="clipboard-write"
+  style="display:block;width:100%;height:950px;border:0;max-width:100%"></iframe>
+
+<!-- Lav din egen plakat -->
+<iframe id="ai-embed-editor" title="Lav din egen plakat"
+  src="https://lgad-via.github.io/AI-blomst-embed/plakat-editor.html?lang=da&amp;theme=light&amp;parentOrigin=https%3A%2F%2Fai-blomsten.via.dk"
+  loading="lazy" allow="clipboard-write"
+  style="display:block;width:100%;height:950px;border:0;max-width:100%"></iframe>
+
+<!-- Lav din egen AI-blomst -->
+<iframe id="ai-embed-blomst" title="Lav din egen AI-blomst"
+  src="https://lgad-via.github.io/AI-blomst-embed/ai-blomst.html?lang=da&amp;theme=light&amp;parentOrigin=https%3A%2F%2Fai-blomsten.via.dk"
+  loading="lazy" allow="clipboard-write"
+  style="display:block;width:100%;height:950px;border:0;max-width:100%"></iframe>
+
+<!-- Indsæt kun dette script én gang på Sitecore-siden, hvor iframe(r) vises. -->
+<script>
+window.addEventListener('message', function (event) {
+  if (event.origin !== 'https://lgad-via.github.io') return;
+  if (!event.data || event.data.source !== 'ai-blomsten-embed' || event.data.type !== 'resize') return;
+  const frame = [...document.querySelectorAll('iframe[id^="ai-embed-"]')]
+    .find(el => el.contentWindow === event.source);
+  if (!frame) return;
+  const height = Number(event.data.height);
+  if (Number.isFinite(height) && height >= 200 && height <= 15000) frame.style.height = height + 'px';
+});
+</script>
